@@ -1,0 +1,16 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "YelpCamp is a full-stack web application where users can create, review, and explore campgrounds. This code-along project is part of Colt Steele's \"The Web Developer Bootcamp 2024\" Udemy course. This project is designed to consolidate web development skills learnt throughout the course and provides a practical introduction to full-stack development using Node.js, Express, MongoDB, and other modern web technologies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.0"
+  }
+}
