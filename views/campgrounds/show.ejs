@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campground - Show</title>
+</head>
+<body>
+    <h1><%= campground.title %></h1>
+    <h2><%= campground.location %></h1>
+        <footer>
+            <a href="/campgrounds">All Campgrounds</a>
+        </footer>
+</body>
+</html>
+
+
+// route for making new campground
+app.get("/campgrounds/new", async (req, res) => {
+   res.render("campgrounds/new");
+});
+
+app.post("/campgrounds", async (req, res) => {
+    const campground = new Campground(req.body.campground);
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+ });
+
+
+ app.use(express.urlencoded({extended: true})); // parse incoming incoming request payloads for accessing submitted form body
