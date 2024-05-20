@@ -12,18 +12,3 @@
         </footer>
 </body>
 </html>
-
-
-// route for making new campground
-app.get("/campgrounds/new", async (req, res) => {
-   res.render("campgrounds/new");
-});
-
-app.post("/campgrounds", async (req, res) => {
-    const campground = new Campground(req.body.campground);
-    await campground.save();
-    res.redirect(`/campgrounds/${campground._id}`);
- });
-
-
- app.use(express.urlencoded({extended: true})); // parse incoming incoming request payloads for accessing submitted form body
