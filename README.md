@@ -1,2 +1,2 @@
 # YelpCamp
-YelpCamp is a full-stack web application that allows users to create, review, and explore campgrounds.
+YelpCamp is a full-stack web application where users can create, review, and explore campgrounds. This code-along project is part of Colt Steele's "The Web Developer Bootcamp 2024" Udemy course. This project is designed to consolidate web development skills learnt throughout the course and provides a practical introduction to full-stack development using Node.js, Express, MongoDB, and other modern web technologies.
