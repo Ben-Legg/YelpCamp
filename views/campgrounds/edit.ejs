@@ -32,11 +32,11 @@
                 <textarea class="form-control" type="text" id="description"
                     name="campground[description]"><%= campground.description%></textarea>
             </div>
-            <div class="mb-3">
-                <button class="btn btn-info">Update Campground</button>
+            <div class="mb-3 d-flex justify-content-around">
+                <button class="btn btn-outline-success">Update Campground</button>
+                <a href="/campgrounds/<%= campground._id%>" class="btn btn-outline-primary">Back To Campground</a>
             </div>
         </form>
-        <a href="/campgrounds/<%= campground._id%>">Back To Campground</a>
 
     </div>
 </div>
