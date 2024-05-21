@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const Campground = require("./models/campground"); // import model
 
@@ -15,9 +16,9 @@ mongoose.connection.once("open", () => {
 
 const app = express();
 
-// set view engine and define relative path to views
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.engine("ejs", ejsMate); // set up ejs-mate engine for rendering templates
+app.set("view engine", "ejs"); // specify default view engine will be EJS
+app.set("views", path.join(__dirname, "views")); // set the directory for view templates
 
 app.use(express.urlencoded({extended: true})); // parse incoming incoming request payloads for accessing submitted form body
 app.use(methodOverride("_method")); // enable support for HTTP PUT and DELETE
