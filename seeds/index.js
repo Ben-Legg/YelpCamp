@@ -20,11 +20,15 @@ const randomCampName = array => array[Math.floor(Math.random() * array.length)];
 // function to seed db with random campground data 
 async function seedDB() {
     await Campground.deleteMany({}); // delete existing documents in database collection
-    for (let i = 0; i < 50; i++){ // create 50 random instances of Campground model using data from cities array
-        const randomCityIndex = Math.floor(Math.random() * 1000);
+    for (let i = 0; i < 50; i++){ // create 50 random instances of Campground model
+        const randomCityIndex = Math.floor(Math.random() * 1000); // Pick ramdom location using data from cities array
+        const randomPrice = Math.floor(Math.random() * 20) + 10; // Make a random price
         const camp = new Campground({
             location: `${cities[randomCityIndex].city}, ${cities[randomCityIndex].state}`,
-            title: `${randomCampName(descriptors)} ${randomCampName(places)}`
+            title: `${randomCampName(descriptors)} ${randomCampName(places)}`,
+            image: "https://source.unsplash.com/collection/483251",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            price: randomPrice
         });
         await camp.save();
     }
