@@ -1,10 +1,10 @@
 // class for raising custom errors
 
 class ExpressError extends Error {
-    constructor(message, statuscode) {
+    constructor(message, statusCode) {
         super();
         this.message = message;
-        this.statuscode = statuscode;
+        this.statusCode = statusCode;
     }
 }
 
