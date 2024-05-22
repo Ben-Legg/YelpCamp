@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
+const  { campgroundSchema } = require("./schemas"); // import joi validation schema
 const catchAsync = require("./utils/catchAsync"); // import async error catching function
 const ExpressError = require("./utils/ExpressError"); // import custom error class
 const methodOverride = require("method-override");
@@ -25,6 +26,16 @@ app.set("views", path.join(__dirname, "views")); // set the directory for view t
 app.use(express.urlencoded({extended: true})); // parse incoming incoming request payloads for accessing submitted form body
 app.use(methodOverride("_method")); // enable support for HTTP PUT and DELETE
 
+const validateCampground = (req, res, next) => {
+    const { error } = campgroundSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
 app.get("/", (req, res) => {
     res.render("home");
 })
@@ -41,7 +52,7 @@ app.get("/campgrounds/new", (req, res) => {
  });
  
 // route for submitting new campground
-app.post("/campgrounds", catchAsync(async (req, res) => {
+app.post("/campgrounds", validateCampground, catchAsync(async (req, res) => {
     const campground = new Campground(req.body.campground);
     await campground.save();
     res.redirect(`/campgrounds/${campground._id}`);
@@ -60,7 +71,7 @@ app.get("/campgrounds/:id", catchAsync(async (req, res) => {
  }));
 
  // route for submitting updated campground details
- app.put("/campgrounds/:id", catchAsync(async (req, res) => {
+ app.put("/campgrounds/:id", validateCampground, catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground }); // spread posted object into new object to update db
     res.redirect(`/campgrounds/${campground._id}`);
