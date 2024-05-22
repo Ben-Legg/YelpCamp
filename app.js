@@ -80,8 +80,9 @@ app.all("*", (req, res, next) => { // only triggered if request made to undefine
 
  // error handling middleware
  app.use((err, req, res, next) => {
-    const { statusCode = 500, message = "Something Went Wrong" } = err;
-    res.status(statusCode).send(`Error: ${message}`);
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = "Something Went Wrong";
+    res.status(statusCode).render("error", {err});
  });
 
 app.listen(3000, () => {
