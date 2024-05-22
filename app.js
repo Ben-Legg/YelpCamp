@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const catchAsync = require("./utils/catchAsync"); // import async error catching function
+const ExpressError = require("./utils/ExpressError"); // import custom error class
 const methodOverride = require("method-override");
 const Campground = require("./models/campground"); // import model
 
@@ -72,9 +73,15 @@ app.delete("/campgrounds/:id", catchAsync(async (req, res) => {
     res.redirect("/campgrounds");
  }));
 
+// route for handling 404 errors
+app.all("*", (req, res, next) => { // only triggered if request made to undefined route
+    next(new ExpressError("Page Not Found", 404));
+})
+
  // error handling middleware
  app.use((err, req, res, next) => {
-    res.send("Oh boy, something went wrong!");
+    const { statusCode = 500, message = "Something Went Wrong" } = err;
+    res.status(statusCode).send(`Error: ${message}`);
  });
 
 app.listen(3000, () => {
